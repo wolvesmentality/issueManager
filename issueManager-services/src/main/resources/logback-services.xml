@@ -1,0 +1,3 @@
+<configuration>
+<include resource="logback-issueManager-services.xml"/>
+</configuration>
