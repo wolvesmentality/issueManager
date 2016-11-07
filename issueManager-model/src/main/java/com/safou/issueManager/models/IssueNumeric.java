@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ISSUE_NUMERIC", catalog = "ISSUE_MANAGER")
+@Table(name = "ISSUE_NUMERIC")
 public class IssueNumeric implements java.io.Serializable {
 
     /**

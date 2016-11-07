@@ -45,7 +45,7 @@ public class AppUser implements java.io.Serializable {
     private AppUserCredential appUserCredential;
 
     @Column(name = "IS_ACTIVE", nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
     private Set<AppRepository> createdRepositories = new HashSet<AppRepository>(0);
@@ -184,6 +184,14 @@ public class AppUser implements java.io.Serializable {
 
     public void setUserRoleIssues(Set<UserRoleIssue> userRoleIssues) {
 	this.userRoleIssues = userRoleIssues;
+    }
+
+    public Boolean getIsActive() {
+	return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+	this.isActive = isActive;
     }
 
 }

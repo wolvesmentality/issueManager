@@ -13,9 +13,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
-	LOGGER.info("hello");
-	int i = 0;
-	i = 5;
+	// load data here
     }
 
 }
