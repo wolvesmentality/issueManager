@@ -33,20 +33,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', //
         var userToken = $localStorage.userToken;
         console.log(userToken);
 
-        /* Try getting valid user from cookie or go to login page */
-        var originalPath = $location.path();
-        $location.path("/login");
-        if (angular.isDefined(userToken) && userToken!== null) {
-          /*
-          UserService.get(function(user) {
-            $rootScope.user = user;
-            $location.path(originalPath);
-          });
-          */
-          $location.path(originalPath);
-        }
-
-
         if (angular.isDefined(userToken)) {
           config.headers['X-AUTH-TOKEN'] = JSON.stringify(userToken);
         }
@@ -60,7 +46,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', //
   }]);  
 }]);
 
-app.run(['$rootScope', '$location', '$cookieStore', 'UserService', function($rootScope, $location, $cookieStore, UserService) {
+app.run(['$rootScope', '$location', '$cookieStore', 'UserService', '$localStorage', //
+  function($rootScope, $location, $cookieStore, UserService, $localStorage) {
     
   /* Reset error when a new view is loaded */
   $rootScope.$on('$viewContentLoaded', function() {
@@ -83,6 +70,19 @@ app.run(['$rootScope', '$location', '$cookieStore', 'UserService', function($roo
     $cookieStore.remove('userToken');
     $location.path("/login");
   };
+
+  // Go to home page when the url is invalid
+  $rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams){ 
+    //event.preventDefault();
+    console.log('cccccc');
+    if (angular.isDefined($localStorage.userToken) && $localStorage.userToken!== null) {
+      $location.path('/');
+    }
+  });
+
+  $rootScope.$on('$routeChangeStart', function(next, current) { 
+    console.log('heyyyyy');
+  });
    
   $rootScope.initialized = true;
 }]);

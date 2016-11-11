@@ -28,6 +28,7 @@ var notify = require("gulp-notify");
 var order = require('gulp-order');
 var concatCss = require('gulp-concat-css');
 var flatten = require('gulp-flatten');
+var jsValidate = require('gulp-jsvalidate');
 
 
 var prepareTemplates = function() {
@@ -67,7 +68,7 @@ gulp.task('build-sass', function() {
 gulp.task('default', ['build-clean']);
 
 gulp.task('build-clean', function() {
-    runSequence('clean', ['build-js','build-vendor-js', 'build-vendor-css', 'build-fonts', 'build-images', 'build-index']);
+    runSequence('clean', ['validate','build-js','build-vendor-js', 'build-vendor-css', 'build-fonts', 'build-images', 'build-index']);
 });
 
 gulp.task('build-fonts', function() {
@@ -88,6 +89,13 @@ gulp.task('build-index', function() {
     return gulp.src('./app/index.html')
     .pipe(gulp.dest('dist'));
 });
+
+gulp.task('validate', function () {
+    return gulp.src('./app/**/*.js')
+    .pipe(order(['main/**/*.js', 'constants/**/*.js', 'services/**/*.js', '/**/*.js']))
+    .pipe(jsValidate().on('error', swallowError));
+});
+
 
 gulp.task('build-clean-js', function() {
     //del('dist/js/bundle.min.js');
@@ -142,7 +150,7 @@ gulp.task("clean", function (cb) {
 
 gulp.task('watch', function() {
     gulp.watch(['./app/**/*.js','./app/**/*.html'], function() {
-        runSequence('build-clean-js','browser-sync');
+        runSequence('validate','build-clean-js','browser-sync');
     });
     gulp.watch(['./app/template/**/*.html','./app/index.html'], function() {
         runSequence('build-index','browser-sync');

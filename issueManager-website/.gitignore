@@ -1,4 +1,7 @@
+web/node_modules/**
+web/dist/**
+web/bower_components/**
 .classpath
 .project
-.settings/
-target/
+.settings/**
+target/**

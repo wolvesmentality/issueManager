@@ -11,7 +11,7 @@ function ($scope, $cookieStore, UserService, $location, $rootScope, $localStorag
     UserService.logout().then(function (response) {
       delete $rootScope.userToken;
       delete $localStorage.userToken;
-      $location.path("/login");      
+      //$location.path("/login");      
     });
   };
 }]);

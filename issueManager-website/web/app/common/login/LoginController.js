@@ -6,8 +6,8 @@ app.config(['$routeProvider',function($routeProvider) {
   })
 }]);
 app.controller('LoginController', ['$location', '$rootScope', '$scope', //
-'UserService', '$cookieStore', '$localStorage', //
-function ($location, $rootScope, $scope, UserService, $cookieStore, $localStorage) {
+'UserService', '$cookieStore', '$localStorage', '$route', //
+function ($location, $rootScope, $scope, UserService, $cookieStore, $localStorage, $route) {
 
   $scope.credentials = {};
   $scope.login = function () {
@@ -20,7 +20,8 @@ function ($location, $rootScope, $scope, UserService, $cookieStore, $localStorag
       if ($scope.rememberMe) {
         $cookieStore.put('userToken', userToken);
       }
-      $location.path("/");
+      $route.reload();
+      //$location.path("/");
       /*
       UserService.get(function(user) {
         $rootScope.user = user;
