@@ -9,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @PropertySources({ @PropertySource("classpath:issueManager-website.properties"),
 	@PropertySource(value = "classpath:issueManager-website-local.properties", ignoreResourceNotFound = true) })
 public class Application extends SpringBootServletInitializer {
@@ -21,6 +20,6 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws Exception {
 	SpringApplication.run(Application.class, args);
-    }
+    } 
 
 }
